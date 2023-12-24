@@ -1,39 +1,47 @@
 #include <iostream>
-#include <list>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
-list<int> l_price;
-list<int> l_money;
+int binarySearch(const vector<int>& mangaPrice, int target) {
+    int low = 0;
+    int high = mangaPrice.size() - 1;
 
-int main(){
-  int n, k;
-  cin >> n >> k;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
 
-  for(int i = 0;i < n; i++){
-    int u;
-    cin >> u;
-    l_price.push_back(u);
-  }
-
-  for(int i = 0; i < k; i++){
-    int v;
-    cin >> v;
-    l_money.push_back(v);
-  }
-
-  l_price.sort();xx
-  
-  for(auto i = l_money.begin(); i != l_money.end(); i++){
-    int money = *i;
-    int count = 0;
-    for(auto j = l_price.begin(); j != l_price.end(); j++){
-      if(money >= *j){
-        money -= *j;
-        count++;
-      }
-      break;
+        if (mangaPrice[mid] <= target) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
     }
-    cout << count << endl;
-  }
 
+    return low;
+}
+
+int main() {
+    int N, K;
+    cin >> N >> K;
+
+    vector<int> mangaPrice(N);
+    vector<int> money(K);
+    int sum = 0;
+    for (int i = 0; i < N; ++i) {
+        int tmp;
+        cin >> tmp;
+        sum += tmp;
+        mangaPrice[i] = sum;
+    }
+
+    for (int i = 0; i < K; ++i) {
+        cin >> money[i];
+    }
+
+    for (int i = 0; i < K; i++) {
+        int index = binarySearch(mangaPrice, money[i]);
+        cout << index << endl;
+    }
+
+    return 0;
 }

@@ -1,3 +1,4 @@
+// clear
 #include <iostream>
 #include <set>
 #include <cmath>
@@ -6,7 +7,7 @@ using namespace std;
 
 int main() {
     set<int> X;
-    vector<int> ans;  // Fix the typo here
+    vector<int> ans;
 
     int N, M;
     cin >> N >> M;
