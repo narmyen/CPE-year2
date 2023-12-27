@@ -3,17 +3,6 @@
 #include <vector>
 using namespace std;
 
-int findMax(const map<int, vector<int>>& statusLikes, int idx) {
-    int maxVal = -99999;
-    for (const auto& pair : statusLikes) {
-        int currentVal = pair.second[idx];
-        if (currentVal > maxVal) {
-            maxVal = currentVal;
-        }
-    }
-    return maxVal;
-}
-
 int findMaxKey(const map<int, vector<int>>& statusLikes, int idx) {
     int maxVal = -99999;
     int key = -1;
@@ -37,7 +26,8 @@ int main() {
 
     for (int i = 0; i < N; ++i) {
         int action, status;
-        cin >> action >> status;
+        cin >> status;
+        action = 1;
 
         if (statusLikes.find(status) == statusLikes.end()) {
             statusLikes[status] = {0, 0};
@@ -50,14 +40,13 @@ int main() {
         }
         statusLikes[status][1] = i + 1;
 
-        int maxLikes = findMax(statusLikes, 0);
-        int maxRound = findMax(statusLikes, 1);
+        int maxLikes_keys = findMaxKey(statusLikes, 0);
 
         filter.clear();
 
         for (const auto& pair : statusLikes) {
             auto val = pair.second;
-            if (val[0] == maxLikes) {
+            if (val[0] == statusLikes[maxLikes_keys][0]) {
                 filter[pair.first] = val;
             }
         }
