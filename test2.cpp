@@ -1,46 +1,51 @@
-// complete
-
 #include <iostream>
-#include <map>
 #include <vector>
+#include <cmath>
 using namespace std;
 
+const int MAX_N = 1005;
+
+struct Point {
+    int x, y;
+};
+
+int n, R;
+Point points[MAX_N];
+
+bool canJump(int x, int y, int jumpRadius) {
+    return (x >= 0 && x <= 100 && y >= 0 && y <= 100 && pow(x - 50, 2) + pow(y, 2) > pow(50 - jumpRadius, 2));
+}
+
 int main() {
-    int M;
-    cin >> M;
+    cin >> n >> R;
 
-    map<int, int> inventory;
-    vector<int> ans;
+    for (int i = 0; i < n; i++) {
+        cin >> points[i].x >> points[i].y;
+    }
 
-    for (int i = 0; i < M; ++i) {
-        int command;
-        cin >> command;
+    int low = 0, high = 100;
+    int result = -1;
 
-        if (command == 1) {
-            int A, B;
-            cin >> A >> B;
-            inventory[A] += B;
-        } else if (command == 2) {
-            int A;
-            cin >> A;
-            ans.push_back(inventory[A]);
-        } else if (command == 3) {
-            int A, B;
-            cin >> A >> B;
-            if(B > inventory[A]){
-                ans.push_back(inventory[A]);
-                inventory[A] = 0;
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        bool valid = true;
+
+        for (int i = 0; i < n; i++) {
+            if (!canJump(points[i].x, points[i].y, mid)) {
+                valid = false;
+                break;
             }
-            else{
-                inventory[A] -= B;
-                ans.push_back(B);
-            }
+        }
+
+        if (valid) {
+            result = mid;
+            low = mid + 1;
+        } else {
+            high = mid - 1;
         }
     }
 
-    for (const auto& val : ans) {
-        cout << val << "\n";
-    }
+    cout << result << endl;
 
     return 0;
 }
