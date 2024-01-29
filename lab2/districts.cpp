@@ -1,35 +1,43 @@
 #include <iostream>
-#include <bits/stdc++.h>
+#include <set>
+#include <vector>
 using namespace std;
 
-int main(){
-  list<int> l;
-  list<int> sorted;
+vector<int> arr;
+set<int> ans;
+bool visited[101];
+int sortArr[101];
 
-  int n,x;
+int main() {
+    int n;
+    cin >> n;
 
-  cin >> n;
-  for(int i = 0; i < n; i++){
-    cin >> x;
-    l.push_back(x);
-  }
-  
-  cout << "List contents: ";
-  for (auto it = l.begin(); it != l.end(); ++it) {
-    cout << *it << " ";
-  }
-  cout << "\n";
+    for (int i = 0; i < 101; i++) {
+        visited[i] = false;
+    }
 
-  list<int> result;
-  auto it = l.begin();
-  while (it != prev(l.end())) {
-      result.push_back(*it + *next(it));
-  }
+    for (int i = 0; i < n; i++) {
+        int num;
+        cin >> num;
+        arr.push_back(num);
+        visited[i] = true;
+    }
 
-  for (auto it = result.begin(); it != result.end(); ++it) {
-    cout << *it << " ";
-  }
+    for (int start = 0; start < n; start++) {
+        int sum = 0;
+        for (int i = start; i < n; i++) {
+            sum += arr[i];
+            ans.insert(sum);
+        }
+    }
 
+    // auto it = ans.begin();
+    // while (it != ans.end()) {
+    //     cout << *it << " ";
+    //     ++it;
+    // }
 
+    cout << ans.size() << endl;
 
+    return 0;
 }

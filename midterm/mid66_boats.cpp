@@ -23,8 +23,9 @@ int main(){
   }
 
 
-  // for(int i = 0; i < m; i++){
-  //   int 
-  // }
+  for(int i = 0; i < m; i++){
+    auto lowY = lower_bound(arr_x.begin(), arr_x.end(), arr_y[i]);
+    if(*lowY < y[i])
+  }
   return 0;
 }

@@ -19,10 +19,6 @@ int main(){
   }
 
   sort(position, position + n);
-  
-//   for(int i = 0; i < n; i++){
-//       cout << position[i];
-//   }
 
   int max = -999999;
   
@@ -39,10 +35,6 @@ int main(){
         max = interval[i];
     }
   }
-
-//   for(int i = 0;i < n; i++){
-//     cout << interval[i] << " ";
-//   }
 
   cout << max << "\n";
 
